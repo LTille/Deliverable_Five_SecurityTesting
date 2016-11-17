@@ -39,6 +39,8 @@ The screenshot follows the steps of what OWASP ZAP does
 ![v1xss2](https://cloud.githubusercontent.com/assets/16599342/20375510/973a4750-ac4d-11e6-9f00-a4c139b21b69.png)
 
 
+
+
 ## Vulnerability 2:  SQL Injection
 The vulnerability is detected by successfully retrieving more data than originally returned, by manipulating the parameter
 
@@ -60,13 +62,16 @@ Exploiting this vulnerability would due to data loss and unauthorized access. Wh
 The URL of the website with the described vulnerability: http://demo.testfire.net/bank/login.aspx
 
 ###### Steps taken to exploit the vulnerability.
-  (1) Go to login page of the website http://demo.testfire.net/bank/login.aspx
-  (2) Type “ZAP” as username, “ZAP' OR '1'='1' --” as password.
-  (3) Successfully log in as administrator to view and edit users’ information.
+1. Go to login page of the website http://demo.testfire.net/bank/login.aspx
+2. Type “ZAP” as username, “ZAP' OR '1'='1' --” as password.
+3. Successfully log in as administrator to view and edit users’ information.
 
 A screenshot of the vulnerability.
 ![v2sql1](https://cloud.githubusercontent.com/assets/16599342/20375512/973b2774-ac4d-11e6-8b3d-8c73d7805dec.png)
 <img width="1440" alt="v2sql2" src="https://cloud.githubusercontent.com/assets/16599342/20375513/973bb950-ac4d-11e6-91fb-73cf2551b03a.png">
+
+
+
 
 Vulnerability 3: Remote OS command injection
 
@@ -77,10 +82,7 @@ Interruption: Injection code to disrupt services of a host connected to the Inte
 Interception: Interception, because user may obtain the password through command injection.
 Modification: Upload malicious code which could modify or deleting data on the web server
 
-
 Referring to the aforementioned ways of exploiting this vulnerability, we can see the attacks can be both active and passive.  
-
-
 Business value would be lost:  Reputation damage would occur if user data is modified or deleted by attacker through os command injection. Moreover, all data could be stolen by attacker, where resides business value, which would incur financial damage.   
 
 
@@ -94,6 +96,7 @@ Steps for development team taken to fix this vulnerability:
 The URL of the website with the described vulnerability. http://www.webscantest.com/osrun/whois.php   
 
 
+
 ###### Steps taken to exploit the vulnerability
 (1). Enter the URL provided above
 (2).  Enter any of the following unix command below,  they can all be executed under the privileges of the web-server
@@ -105,17 +108,18 @@ The URL of the website with the described vulnerability. http://www.webscantest.
   ;ls /tmp
 
 For example, if I entered ;cat /etc/passwd 
-<img width="1434" alt="error" src="https://cloud.githubusercontent.com/assets/16599342/20375522/a77ad882-ac4d-11e6-8038-9a9e25459e0d.png">
-
-Result as follow is obtained
-
 <img width="1342" alt="os1" src="https://cloud.githubusercontent.com/assets/16599342/20375523/a785d4ee-ac4d-11e6-8fdd-40a0d0718944.png">
 
-If I entered ;cat /proc/cpuinfo
+Result as follow is obtained
 <img width="1092" alt="os2" src="https://cloud.githubusercontent.com/assets/16599342/20375524/a78fb7ca-ac4d-11e6-9c09-10d0a0e5f4be.png">
 
-Result as follow is obtained
+If I entered ;cat /proc/cpuinfo
 <img width="1091" alt="os3" src="https://cloud.githubusercontent.com/assets/16599342/20375526/a790467c-ac4d-11e6-80be-6fb75410ec85.png">
+
+Result as follow is obtained
+<img width="1338" alt="os4" src="https://cloud.githubusercontent.com/assets/16599342/20375525/a78fcb20-ac4d-11e6-9d81-4c195ac99555.png">
+
+
 
 ## Vulnerability 4:  Application Error Disclosure
 
@@ -140,5 +144,5 @@ http://demo.testfire.net/default.aspx?content=personal_savings.htm
 
 This vulnerability resides in the website is stack traces, which is a structured error message that begins with a description of the actual error. The top line of the call stack shows the function that generated the error, the next line shows the function that invoked the previous function, and so on down the call stack until the hierarchy of function calls is exhausted. Although it didn’t leak sensitive information directly as I assumed in the previous step, this may enable attacker to adjust their input to avoid the error condition and advance their attack. The call stack includes the names of the proprietary code components being used to process the request. The naming scheme for these and the interrelationships between them may allow attacker to infer details about the internal structure and functionality of the application.
 
-<img width="1338" alt="os4" src="https://cloud.githubusercontent.com/assets/16599342/20375525/a78fcb20-ac4d-11e6-9d81-4c195ac99555.png">
+<img width="1434" alt="error" src="https://cloud.githubusercontent.com/assets/16599342/20375522/a77ad882-ac4d-11e6-8038-9a9e25459e0d.png">
 
