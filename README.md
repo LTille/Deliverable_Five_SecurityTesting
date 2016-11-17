@@ -12,11 +12,15 @@ If attacker didn’t get user’s username and password from the session, then i
 Cross-site Scripting attacks essentially compromise the trust relationship between a user and the web site, and the company will lose its reputation. If attacker get password of administrator, then it will cause data loss and unauthorized access.
 
 ###### Steps for development team taken to fix this vulnerability:
-    (1) Perform input validation and consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. Guarantee that the pages in the Web site return user inputs only after validating them for any malicious code. 
+    (1) Perform input validation and consider all potentially relevant properties, including length, type of input, 
+     the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, 
+     and conformance to business rules. Guarantee that the pages in the Web site return user inputs only after validating them for any malicious code. 
 
-    (2) Convert all non-alphanumeric characters to HTML character entities before displaying the user input in search engines and forums.
+    (2) Convert all non-alphanumeric characters to HTML character entities before displaying 
+    the user input in search engines and forums.
 
-    (3) Use testing tools extensively during the design phase to eliminate such XSS holes in the application before it goes into use.
+    (3) Use testing tools extensively during the design phase to eliminate 
+    such XSS holes in the application before it goes into use.
 
 
 The URL of the website with the described vulnerability: http://demo.testfire.net/
