@@ -2,6 +2,8 @@
 ## Author: Huizhi Zhong(huz25), Ting Li(til42)
 
 ## Vulnerability 1: Cross Site Scripting (Reflected)
+
+### 1.1 Vulnerability description
 Cross-site Scripting (XSS) is an attack technique that involves echoing attacker-supplied code into a user's browser instance.
 
 It attacks confidentiality and integrity as unauthorized user can get password from users’ session to log in and then read and write data.
@@ -12,7 +14,7 @@ If attacker didn’t get user’s username and password from the session, then i
 
 Business value would be lost: Cross-site Scripting attacks essentially compromise the trust relationship between a user and the web site, and the company will lose its reputation. If attacker get password of administrator, then it will cause data loss and unauthorized access.
 
-#### Steps for development team taken to fix this vulnerability:
+### 1.2 Steps for development team taken to fix this vulnerability:
    1. Perform input validation and consider all potentially relevant properties, including length, type of input, the full range of acceptable values, missing or extra inputs, syntax, consistency across related fields, and conformance to business rules. Guarantee that the pages in the Web site return user inputs only after validating them for any malicious code. 
    2. Convert all non-alphanumeric characters to HTML character entities before displaying the user input in search engines and forums.
    3. Use testing tools extensively during the design phase to eliminate such XSS holes in the application before it goes into use.
@@ -48,7 +50,7 @@ Attacks that exploit this vulnerability is active because attacker log in as adm
 
 Business value would be lost:Exploiting this vulnerability would due to data loss and unauthorized access. When attacker is able to log in as an administrator, customers’ information are stolen which will affect public image of the company and result in noticeable profit loss. 
 
-###### Steps for development team taken to fix this vulnerability:
+#### Steps for development team taken to fix this vulnerability:
   1. Adopt an input validation technique in which user input is authenticated against a set of defined rules for length, type and syntax and also against business rules.
   2. Development team should ensure that users with the permission to access the database have the least privileges. Additionally, avoid using the 'sa' or 'db-owner' database users. This does not eliminate SQL injection, but minimizes its impact.
   3. Also, you should always make sure that a database user is created only for a specific application and this user is not able to access other applications. 
