@@ -66,7 +66,7 @@ Business value would be lost:Exploiting this vulnerability would due to data los
    2. Type “ZAP” as username, “ZAP' OR '1'='1' --” as password.
    3. Successfully log in as administrator to view and edit users’ information.
 
-A screenshot of the vulnerability.
+A screenshot of the vulnerability
 ![v2sql1](https://cloud.githubusercontent.com/assets/16599342/20375512/973b2774-ac4d-11e6-8b3d-8c73d7805dec.png)
 <img width="1440" alt="v2sql2" src="https://cloud.githubusercontent.com/assets/16599342/20375513/973bb950-ac4d-11e6-91fb-73cf2551b03a.png">
 
@@ -81,6 +81,7 @@ Remote OS command injection is an attack technique that user can supply operatin
 Interruption, Interception and Modification can exploit this vulnerability. Injecting code to disrupt services of a host connected to the Internet, resulting in Denial-of-service attack(Interruption); attacker can obtain the password through command injection to monitor user behevior (interception); upload malicious code which could modify or deleting data on the web server (Modification).
 
 Referring to the aforementioned ways of exploiting this vulnerability, we can see the attacks can be both active and passive.  
+
 Business value would be lost: Reputation damage would occur if user data is modified or deleted by attacker through os command injection. Moreover, all data could be stolen by attacker, where resides business value, which would incur financial damage.   
 
 ### 3.2. Steps for development team taken to fix this vulnerability
@@ -94,12 +95,12 @@ Business value would be lost: Reputation damage would occur if user data is modi
 ### 3.4. Steps taken to exploit the vulnerability
    1. Enter the URL provided above
    2. Enter any of the following unix command below,  they can all be executed under the privileges of the web-server
-       ;cat /proc/cpuinfo
+       (;cat /proc/cpuinfo
        ;cat /etc/passwd
        ;cat id
        ;uname -a
        ;pwd
-      ;ls /tmp
+      ;ls /tmp)
 
 For example, if I entered ;cat /etc/passwd 
 <img width="1342" alt="os1" src="https://cloud.githubusercontent.com/assets/16599342/20375523/a785d4ee-ac4d-11e6-8fdd-40a0d0718944.png">
