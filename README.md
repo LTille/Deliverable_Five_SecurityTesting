@@ -34,6 +34,7 @@ Business value would be lost: Cross-site Scripting attacks essentially compromis
 The screenshot follows the steps of what OWASP ZAP does
 
 ![v1xss1](https://cloud.githubusercontent.com/assets/16599342/20375511/973a8fb2-ac4d-11e6-804d-25dbacad5fba.png)
+
 ![v1xss2](https://cloud.githubusercontent.com/assets/16599342/20375510/973a4750-ac4d-11e6-9f00-a4c139b21b69.png)
 
 
@@ -106,13 +107,13 @@ For example, if I entered ;cat /etc/passwd
 <img width="1342" alt="os1" src="https://cloud.githubusercontent.com/assets/16599342/20375523/a785d4ee-ac4d-11e6-8fdd-40a0d0718944.png">
 
 Result as follow is obtained
-<img width="1092" alt="os2" src="https://cloud.githubusercontent.com/assets/16599342/20375524/a78fb7ca-ac4d-11e6-9c09-10d0a0e5f4be.png">
+<img width="1338" alt="os4" src="https://cloud.githubusercontent.com/assets/16599342/20375525/a78fcb20-ac4d-11e6-9d81-4c195ac99555.png">
 
 If I entered ;cat /proc/cpuinfo
 <img width="1091" alt="os3" src="https://cloud.githubusercontent.com/assets/16599342/20375526/a790467c-ac4d-11e6-80be-6fb75410ec85.png">
 
 Result as follow is obtained
-<img width="1338" alt="os4" src="https://cloud.githubusercontent.com/assets/16599342/20375525/a78fcb20-ac4d-11e6-9d81-4c195ac99555.png">
+<img width="1092" alt="os2" src="https://cloud.githubusercontent.com/assets/16599342/20375524/a78fb7ca-ac4d-11e6-9c09-10d0a0e5f4be.png">
 
 
 ## Vulnerability 4:  Application Error Disclosure
